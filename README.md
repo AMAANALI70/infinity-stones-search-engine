@@ -350,15 +350,11 @@ This project demonstrates:
 - **Voice Search**: Speech-to-text search capability
 - **Product Recommendations**: AI-powered similar product suggestions
 
-## 📝 License
-
-This project is created for educational purposes as part of Task 05.
 
 ## 👨‍💻 Author
 
 **Amaan Ali D Doddamani**
-- Task 04: Infinity Stones Case Study
-- Task 05: Infinity Stones Search Engine Implementation
+- Task: Infinity Stones Search Engine Implementation
   - v1.0: Command-line search engine with all six stones
   - v2.0: Full web application with enhanced filtering and UI
 
