@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Filter Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ccc; }
+        .result-item { margin: 10px 0; padding: 10px; background: #f5f5f5; border-radius: 5px; }
+        #searchResults { margin-top: 20px; }
+        button, select, input { margin: 5px; padding: 8px; }
+    </style>
+</head>
+<body>
+    <h1>🔮 Category Filter Test</h1>
+    
+    <div class="test-section">
+        <h2>Test Search & Category Filter</h2>
+        <input type="text" id="searchQuery" placeholder="Enter search query (e.g., 'car', 'speaker', 'gym')" value="vacuum">
+        <button onclick="performSearch()">Search</button>
+        <br>
+        <label>Filter by Category:</label>
+        <select id="categoryFilter" onchange="filterResults()">
+            <option value="">All Categories</option>
+            <option value="electronics">Electronics</option>
+            <option value="automotive">Automotive</option>
+            <option value="beauty">Beauty</option>
+            <option value="home">Home</option>
+            <option value="sports">Sports</option>
+        </select>
+        
+        <div id="searchResults">
+            <p><em>Search for products to test the category filter</em></p>
+        </div>
+        
+        <div class="pagination" id="pagination"></div>
+    </div>
+
+    <script>
+        let searchResults = [];
+        
+        async function performSearch() {
+            const query = document.getElementById('searchQuery').value.trim();
+            if (!query) {
+                alert('Please enter a search query');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        query: query,
+                        stone: 'all'
+                    })
+                });
+                
+                const data = await response.json();
+                if (data.success) {
+                    searchResults = data.results;
+                    displayResults(searchResults);
+                    console.log('Search successful:', data.results.length, 'results found');
+                } else {
+                    alert('Search failed: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Search error:', error);
+                alert('Search failed: ' + error.message);
+            }
+        }
+        
+        function displayResults(results) {
+            const container = document.getElementById('searchResults');
+            if (!results || results.length === 0) {
+                container.innerHTML = '<p>No results found</p>';
+                return;
+            }
+            
+            container.innerHTML = `
+                <h3>Found ${results.length} results:</h3>
+                ${results.map((result, index) => {
+                    const product = result.product_data;
+                    return `
+                        <div class="result-item">
+                            <strong>Product ${index + 1} (ID: ${result.product_id})</strong><br>
+                            <strong>Type:</strong> ${product.Type || 'N/A'}<br>
+                            <strong>Brand:</strong> ${product.Brand || 'N/A'}<br>
+                            <strong>Features:</strong> ${product.Features || 'N/A'}<br>
+                            <strong>Score:</strong> ${(result.relevance_score * 100).toFixed(1)}%
+                        </div>
+                    `;
+                }).join('')}
+            `;
+        }
+        
+        function filterResults() {
+            if (!searchResults || searchResults.length === 0) {
+                alert('Please search for products first');
+                return;
+            }
+            
+            const category = document.getElementById('categoryFilter').value;
+            console.log('Filtering by category:', category);
+            
+            if (!category) {
+                displayResults(searchResults);
+                return;
+            }
+            
+            const filteredResults = searchResults.filter(result => {
+                const productType = (result.product_data.Type || '').toLowerCase();
+                const productBrand = (result.product_data.Brand || '').toLowerCase();
+                const productFeatures = (result.product_data.Features || '').toLowerCase();
+                const allProductText = `${productType} ${productBrand} ${productFeatures}`.toLowerCase();
+                
+                // Create category mapping for better filtering
+                switch(category) {
+                    case 'automotive':
+                        return productType.includes('car') || 
+                               productType.includes('bike') || 
+                               productType.includes('vehicle') ||
+                               productType.includes('tyre') ||
+                               productType.includes('vacuum') ||
+                               productType.includes('bluetooth converter') ||
+                               allProductText.includes('car') ||
+                               allProductText.includes('automotive') ||
+                               allProductText.includes('vehicle');
+                    
+                    case 'electronics':
+                        return productType.includes('bluetooth') ||
+                               productType.includes('speaker') ||
+                               productType.includes('headphone') ||
+                               productType.includes('converter') ||
+                               productType.includes('led') ||
+                               productType.includes('light') ||
+                               allProductText.includes('bluetooth') ||
+                               allProductText.includes('electronic') ||
+                               allProductText.includes('digital');
+                    
+                    case 'beauty':
+                        return allProductText.includes('beauty') ||
+                               allProductText.includes('cream') ||
+                               allProductText.includes('cosmetic') ||
+                               allProductText.includes('skin') ||
+                               allProductText.includes('hair');
+                    
+                    case 'home':
+                        return productType.includes('mattress') ||
+                               productType.includes('pillow') ||
+                               productType.includes('furniture') ||
+                               productType.includes('table') ||
+                               productType.includes('chair') ||
+                               productType.includes('bed') ||
+                               allProductText.includes('home') ||
+                               allProductText.includes('furniture') ||
+                               allProductText.includes('household');
+                    
+                    case 'sports':
+                        return productType.includes('gym') ||
+                               productType.includes('fitness') ||
+                               productType.includes('exercise') ||
+                               productType.includes('sports') ||
+                               productType.includes('yoga') ||
+                               productType.includes('workout') ||
+                               allProductText.includes('gym') ||
+                               allProductText.includes('fitness') ||
+                               allProductText.includes('sports') ||
+                               allProductText.includes('exercise');
+                    
+                    default:
+                        return productType.includes(category);
+                }
+            });
+            
+            console.log('Filtered results:', filteredResults.length, 'out of', searchResults.length);
+            displayResults(filteredResults);
+        }
+    </script>
+</body>
+</html>

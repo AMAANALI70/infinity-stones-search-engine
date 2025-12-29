@@ -1,0 +1,525 @@
+/* Enhanced Stone Panel Styles */
+
+/* Force visibility for debugging */
+.stone-panel {
+    min-height: 600px !important;
+}
+
+.stones-grid {
+    min-height: 400px !important;
+}
+
+.stone-card.enhanced {
+    min-height: 200px !important;
+    border: 2px solid #4A90E2 !important;
+}
+
+/* Enhanced Stone Panel */
+.stone-panel {
+    background: rgba(26, 26, 46, 0.95);
+    border-radius: 25px;
+    padding: 3rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(74, 144, 226, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+.stone-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(74, 144, 226, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(240, 71, 96, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.panel-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 2;
+}
+
+.panel-header h2 {
+    font-family: 'Orbitron', monospace;
+    color: var(--text-primary);
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(45deg, var(--space-blue), var(--power-purple), var(--soul-orange));
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease-in-out infinite;
+}
+
+.power-indicator-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.power-text {
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.power-bar-panel {
+    width: 300px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.power-fill-panel {
+    height: 100%;
+    background: linear-gradient(90deg, var(--space-blue), var(--power-purple), var(--soul-orange));
+    border-radius: 6px;
+    width: 0%;
+    transition: width 0.8s ease;
+    position: relative;
+    box-shadow: 0 0 20px rgba(74, 144, 226, 0.5);
+}
+
+.power-fill-panel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: powerShimmer 2s ease-in-out infinite;
+}
+
+.power-percentage {
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 1.1rem;
+    min-width: 50px;
+    text-align: center;
+}
+
+.stones-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+    gap: 2rem !important;
+    margin-bottom: 3rem !important;
+    position: relative;
+    z-index: 2;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.stone-card.enhanced {
+    background: rgba(22, 33, 62, 0.9) !important;
+    border-radius: 20px !important;
+    padding: 1.8rem !important;
+    cursor: pointer !important;
+    transition: all 0.4s ease !important;
+    border: 2px solid transparent !important;
+    position: relative !important;
+    overflow: hidden !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 100% !important;
+    height: auto !important;
+}
+
+.stone-card.enhanced::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.6s ease;
+}
+
+.stone-card.enhanced:hover::before {
+    left: 100%;
+}
+
+.stone-card.enhanced:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.stone-card.enhanced.active {
+    border-color: var(--space-blue);
+    box-shadow: 0 0 30px rgba(74, 144, 226, 0.4);
+    transform: translateY(-5px) scale(1.05);
+}
+
+.stone-card.enhanced[data-color="blue"]:hover { 
+    border-color: var(--space-blue);
+    box-shadow: 0 0 25px rgba(74, 144, 226, 0.3);
+}
+.stone-card.enhanced[data-color="yellow"]:hover { 
+    border-color: var(--mind-yellow);
+    box-shadow: 0 0 25px rgba(245, 166, 35, 0.3);
+}
+.stone-card.enhanced[data-color="red"]:hover { 
+    border-color: var(--reality-red);
+    box-shadow: 0 0 25px rgba(208, 2, 27, 0.3);
+}
+.stone-card.enhanced[data-color="purple"]:hover { 
+    border-color: var(--power-purple);
+    box-shadow: 0 0 25px rgba(144, 19, 254, 0.3);
+}
+.stone-card.enhanced[data-color="green"]:hover { 
+    border-color: var(--time-green);
+    box-shadow: 0 0 25px rgba(126, 211, 33, 0.3);
+}
+.stone-card.enhanced[data-color="orange"]:hover { 
+    border-color: var(--soul-orange);
+    box-shadow: 0 0 25px rgba(248, 231, 28, 0.3);
+}
+
+.stone-glow-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.stone-card.enhanced:hover .stone-glow-effect {
+    opacity: 0.3;
+}
+
+.stone-card.enhanced[data-color="blue"] .stone-glow-effect { background: radial-gradient(circle, var(--space-blue), transparent); }
+.stone-card.enhanced[data-color="yellow"] .stone-glow-effect { background: radial-gradient(circle, var(--mind-yellow), transparent); }
+.stone-card.enhanced[data-color="red"] .stone-glow-effect { background: radial-gradient(circle, var(--reality-red), transparent); }
+.stone-card.enhanced[data-color="purple"] .stone-glow-effect { background: radial-gradient(circle, var(--power-purple), transparent); }
+.stone-card.enhanced[data-color="green"] .stone-glow-effect { background: radial-gradient(circle, var(--time-green), transparent); }
+.stone-card.enhanced[data-color="orange"] .stone-glow-effect { background: radial-gradient(circle, var(--soul-orange), transparent); }
+
+.stone-icon {
+    font-size: 2.8rem !important;
+    margin-bottom: 1.2rem !important;
+    animation: stoneGlow 3s ease-in-out infinite !important;
+    position: relative !important;
+    z-index: 2 !important;
+    text-shadow: 0 0 20px currentColor !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.stone-info {
+    text-align: center !important;
+    margin-bottom: 1.2rem !important;
+    position: relative !important;
+    z-index: 2 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.stone-info h3 {
+    font-family: 'Orbitron', monospace;
+    margin-bottom: 0.6rem;
+    font-size: 1.6rem;
+    color: var(--text-primary);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.stone-info p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+}
+
+.stone-description {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.4;
+    opacity: 0.9;
+    font-style: italic;
+}
+
+.stone-power {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.power-bar {
+    flex: 1;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.power-fill {
+    height: 100%;
+    border-radius: 4px;
+    width: 0%;
+    transition: width 0.5s ease;
+    position: relative;
+    box-shadow: 0 0 10px currentColor;
+}
+
+.power-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: powerShimmer 2s ease-in-out infinite;
+}
+
+.power-fill.space { background: var(--gradient-space); }
+.power-fill.mind { background: var(--gradient-mind); }
+.power-fill.reality { background: var(--gradient-reality); }
+.power-fill.power { background: var(--gradient-power); }
+.power-fill.time { background: var(--gradient-time); }
+.power-fill.soul { background: var(--gradient-soul); }
+
+.power-value {
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    min-width: 40px;
+    text-align: right;
+}
+
+.stone-effects {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.particle-effect {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    animation: particleFloat 4s ease-in-out infinite;
+}
+
+.stone-card.enhanced:hover .particle-effect {
+    opacity: 1;
+}
+
+.ripple-effect {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.stone-card.enhanced:active .ripple-effect {
+    opacity: 0.6;
+    transform: scale(1.5);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+}
+
+@keyframes stoneGlow {
+    0%, 100% { 
+        transform: scale(1); 
+        filter: brightness(1) drop-shadow(0 0 10px currentColor); 
+    }
+    50% { 
+        transform: scale(1.1); 
+        filter: brightness(1.3) drop-shadow(0 0 20px currentColor); 
+    }
+}
+
+@keyframes particleFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(180deg); }
+}
+
+.all-stones-section {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.all-stones-btn.enhanced {
+    background: linear-gradient(45deg, var(--space-blue), var(--power-purple), var(--soul-orange));
+    color: white;
+    border: none;
+    padding: 1.5rem 3rem;
+    border-radius: 30px;
+    font-family: 'Orbitron', monospace;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(74, 144, 226, 0.3);
+    margin-bottom: 1rem;
+}
+
+.all-stones-btn.enhanced:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(74, 144, 226, 0.4);
+}
+
+.all-stones-btn.enhanced:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+.btn-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.all-stones-btn.enhanced:hover .btn-glow {
+    opacity: 1;
+    animation: btnGlow 1s ease-in-out infinite;
+}
+
+.btn-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.btn-text {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.infinity-symbol {
+    font-size: 1.5rem;
+    animation: infinityPulse 2s ease-in-out infinite;
+    text-shadow: 0 0 15px currentColor;
+}
+
+.infinity-symbol.left { animation-delay: 0s; }
+.infinity-symbol.right { animation-delay: 1s; }
+
+.btn-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    animation: btnParticles 3s ease-in-out infinite;
+}
+
+.all-stones-btn.enhanced:hover .btn-particles {
+    opacity: 1;
+}
+
+.all-stones-description {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    max-width: 500px;
+    margin: 0 auto;
+    font-style: italic;
+}
+
+@keyframes btnGlow {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+}
+
+@keyframes btnParticles {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.1) rotate(180deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .stones-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .stone-card.enhanced {
+        padding: 1.5rem;
+    }
+    
+    .stone-icon {
+        font-size: 2.4rem !important;
+    }
+    
+    .power-indicator-panel {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .power-bar-panel {
+        width: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stone-panel {
+        padding: 2rem;
+    }
+    
+    .stones-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stone-card.enhanced {
+        padding: 1.5rem;
+    }
+    
+    .panel-header h2 {
+        font-size: 1.8rem;
+    }
+    
+    .power-bar-panel {
+        width: 200px;
+    }
+}

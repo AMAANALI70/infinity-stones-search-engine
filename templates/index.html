@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔮 Infinity Stones Search Engine</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='enhanced_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stone_panel_styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+    <!-- Cosmic Background -->
+    <div class="cosmic-bg">
+        <div class="stars"></div>
+        <div class="nebula"></div>
+        <div class="particles-container" id="particlesContainer"></div>
+        <div class="cosmic-waves"></div>
+    </div>
+
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="title-container">
+                <div class="infinity-symbols">
+                    <span class="infinity-symbol left">∞</span>
+                    <span class="infinity-symbol right">∞</span>
+                </div>
+                <h1 class="title">
+                    <span class="title-text">Infinity Stones</span>
+                    <span class="title-accent">Search Engine</span>
+                </h1>
+            </div>
+            <p class="subtitle">
+                <span class="subtitle-text">Powered by the six Infinity Stones of the Marvel Cinematic Universe</span>
+                <span class="subtitle-accent">Harness the power of the cosmos</span>
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Search Interface -->
+        <div class="search-interface">
+            <div class="search-container">
+                <div class="search-box">
+                    <div class="search-input-container">
+                        <div class="search-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <input type="text" id="searchInput" placeholder="Enter your cosmic search query..." autocomplete="off">
+                        <div class="search-effects">
+                            <div class="typing-indicator" id="typingIndicator"></div>
+                            <div class="search-particles" id="searchParticles"></div>
+                        </div>
+                    </div>
+                    <button id="searchBtn" class="search-btn">
+                        <div class="btn-content">
+                            <i class="fas fa-search"></i>
+                            <span>Search</span>
+                        </div>
+                        <div class="btn-glow"></div>
+                    </button>
+                </div>
+                <div class="search-suggestions" id="searchSuggestions"></div>
+                <div class="search-stats" id="searchStats">
+                    <div class="stat-item">
+                        <i class="fas fa-database"></i>
+                        <span>21,176 Products</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-bolt"></i>
+                        <span>Lightning Fast</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-infinity"></i>
+                        <span>Infinite Power</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Stone Selection Panel -->
+        <div class="stone-panel">
+            <div class="panel-header">
+                <h2>Choose Your Stone Power</h2>
+                <div class="power-indicator-panel">
+                    <span class="power-text">Cosmic Power Level:</span>
+                    <div class="power-bar-panel">
+                        <div class="power-fill-panel" id="panelPowerFill"></div>
+                    </div>
+                    <span class="power-percentage" id="panelPowerLevel">0%</span>
+                </div>
+            </div>
+            
+            <div class="stones-grid">
+                <div class="stone-card enhanced" data-stone="space" data-color="blue">
+                    <div class="stone-glow-effect"></div>
+                    <div class="stone-icon">🔵</div>
+                    <div class="stone-info">
+                        <h3>Space Stone</h3>
+                        <p>Data Exploration</p>
+                        <div class="stone-description">🔍 <strong>Fast Text Search:</strong> Uses inverted indexes and distributed sharding for lightning-fast keyword matching across 21,176+ products</div>
+                    </div>
+                    <div class="stone-power">
+                        <div class="power-bar">
+                            <div class="power-fill space" data-power="0"></div>
+                        </div>
+                        <span class="power-value">0%</span>
+                    </div>
+                    <div class="stone-effects">
+                        <div class="particle-effect"></div>
+                        <div class="ripple-effect"></div>
+                    </div>
+                </div>
+                
+                <div class="stone-card enhanced" data-stone="mind" data-color="yellow">
+                    <div class="stone-glow-effect"></div>
+                    <div class="stone-icon">🟡</div>
+                    <div class="stone-info">
+                        <h3>Mind Stone</h3>
+                        <p>Smart Search</p>
+                        <div class="stone-description">🧠 <strong>AI Understanding:</strong> Analyzes intent, handles synonyms, spell correction, and query expansion for smarter results</div>
+                    </div>
+                    <div class="stone-power">
+                        <div class="power-bar">
+                            <div class="power-fill mind" data-power="0"></div>
+                        </div>
+                        <span class="power-value">0%</span>
+                    </div>
+                    <div class="stone-effects">
+                        <div class="particle-effect"></div>
+                        <div class="ripple-effect"></div>
+                    </div>
+                </div>
+                
+                <div class="stone-card enhanced" data-stone="reality" data-color="red">
+                    <div class="stone-glow-effect"></div>
+                    <div class="stone-icon">🔴</div>
+                    <div class="stone-info">
+                        <h3>Reality Stone</h3>
+                        <p>Advanced Ranking</p>
+                        <div class="stone-description">🎯 <strong>Relevance Master:</strong> Uses TF-IDF, BM25, and personalization algorithms to rank results by true relevance</div>
+                    </div>
+                    <div class="stone-power">
+                        <div class="power-bar">
+                            <div class="power-fill reality" data-power="0"></div>
+                        </div>
+                        <span class="power-value">0%</span>
+                    </div>
+                    <div class="stone-effects">
+                        <div class="particle-effect"></div>
+                        <div class="ripple-effect"></div>
+                    </div>
+                </div>
+                
+                <div class="stone-card enhanced" data-stone="power" data-color="purple">
+                    <div class="stone-glow-effect"></div>
+                    <div class="stone-icon">🟣</div>
+                    <div class="stone-info">
+                        <h3>Power Stone</h3>
+                        <p>Computational Power</p>
+                        <div class="stone-description">⚡ <strong>Distributed Computing:</strong> Combines results from all stones with weighted scoring and parallel processing</div>
+                    </div>
+                    <div class="stone-power">
+                        <div class="power-bar">
+                            <div class="power-fill power" data-power="0"></div>
+                        </div>
+                        <span class="power-value">0%</span>
+                    </div>
+                    <div class="stone-effects">
+                        <div class="particle-effect"></div>
+                        <div class="ripple-effect"></div>
+                    </div>
+                </div>
+                
+                <div class="stone-card enhanced" data-stone="time" data-color="green">
+                    <div class="stone-glow-effect"></div>
+                    <div class="stone-icon">🟢</div>
+                    <div class="stone-info">
+                        <h3>Time Stone</h3>
+                        <p>Speed Optimization</p>
+                        <div class="stone-description">⏱️ <strong>Ultra-Fast Search:</strong> Uses advanced LRU caching and Jaccard similarity for sub-second response times</div>
+                    </div>
+                    <div class="stone-power">
+                        <div class="power-bar">
+                            <div class="power-fill time" data-power="0"></div>
+                        </div>
+                        <span class="power-value">0%</span>
+                    </div>
+                    <div class="stone-effects">
+                        <div class="particle-effect"></div>
+                        <div class="ripple-effect"></div>
+                    </div>
+                </div>
+                
+                <div class="stone-card enhanced" data-stone="soul" data-color="orange">
+                    <div class="stone-glow-effect"></div>
+                    <div class="stone-icon">🟠</div>
+                    <div class="stone-info">
+                        <h3>Soul Stone</h3>
+                        <p>Business Intelligence</p>
+                        <div class="stone-description">📊 <strong>Analytics Engine:</strong> Tracks search patterns, popular queries, and provides business insights from user behavior</div>
+                    </div>
+                    <div class="stone-power">
+                        <div class="power-bar">
+                            <div class="power-fill soul" data-power="0"></div>
+                        </div>
+                        <span class="power-value">0%</span>
+                    </div>
+                    <div class="stone-effects">
+                        <div class="particle-effect"></div>
+                        <div class="ripple-effect"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="all-stones-section">
+                <button class="all-stones-btn enhanced" id="allStonesBtn">
+                    <div class="btn-glow"></div>
+                    <div class="btn-content">
+                        <span class="infinity-symbol left">∞</span>
+                        <span class="btn-text">Use All Stones</span>
+                        <span class="infinity-symbol right">∞</span>
+                    </div>
+                    <div class="btn-particles"></div>
+                </button>
+                <div class="all-stones-description">
+                    Harness the combined power of all six Infinity Stones for ultimate search capabilities
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Results Section -->
+        <div class="results-section" id="resultsSection" style="display: none;">
+            <div class="results-header">
+                <h2>Search Results</h2>
+                <div class="results-stats">
+                    <span id="resultsCount">0</span> results found in 
+                    <span id="searchTime">0.000</span> seconds
+                </div>
+            </div>
+            
+            <!-- Filters -->
+            <div class="filters">
+                <div class="filter-group">
+                    <label>Sort by:</label>
+                    <select id="sortBy">
+                        <option value="relevance">Relevance</option>
+                        <option value="brand">Brand</option>
+                        <option value="type">Type</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Category:</label>
+                    <select id="categoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="automotive">Automotive</option>
+                        <option value="beauty">Beauty</option>
+                        <option value="home">Home</option>
+                        <option value="sports">Sports</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Results Grid -->
+            <div class="results-grid" id="resultsGrid">
+                <!-- Advanced result cards will be dynamically generated here -->
+            </div>
+            
+            <!-- Result Visualization -->
+            <div class="results-visualization" id="resultsVisualization">
+                <div class="visualization-container">
+                    <div class="stone-power-chart" id="stonePowerChart"></div>
+                    <div class="relevance-distribution" id="relevanceDistribution"></div>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination" id="pagination"></div>
+        </div>
+
+        <!-- Analytics Dashboard -->
+        <div class="analytics-dashboard" id="analyticsDashboard" style="display: none;">
+            <h2>📊 Analytics Dashboard</h2>
+            <div class="analytics-grid">
+                <div class="analytics-card">
+                    <h3>Search Statistics</h3>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Searches:</span>
+                        <span class="stat-value" id="totalSearches">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Average Time:</span>
+                        <span class="stat-value" id="avgSearchTime">0.000s</span>
+                    </div>
+                </div>
+                
+                <div class="analytics-card">
+                    <h3>Stone Usage</h3>
+                    <div class="stone-usage-chart" id="stoneUsageChart"></div>
+                </div>
+                
+                <div class="analytics-card">
+                    <h3>Popular Queries</h3>
+                    <div class="popular-queries" id="popularQueries"></div>
+                </div>
+                
+                <div class="analytics-card">
+                    <h3>Product Categories</h3>
+                    <div class="category-chart" id="categoryChart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+        <div class="loading-content">
+            <div class="infinity-loader">
+                <div class="stone-loader space"></div>
+                <div class="stone-loader mind"></div>
+                <div class="stone-loader reality"></div>
+                <div class="stone-loader power"></div>
+                <div class="stone-loader time"></div>
+                <div class="stone-loader soul"></div>
+            </div>
+            <p>Harnessing the power of the Infinity Stones...</p>
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div class="modal" id="productModal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <div class="modal-header">
+                <h2 id="modalTitle">Product Details</h2>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+            <div class="modal-footer">
+                <div class="stone-powers-display" id="stonePowersDisplay"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bottom-nav">
+        <button class="nav-btn active" data-section="search">
+            <i class="fas fa-search"></i>
+            Search
+        </button>
+        <button class="nav-btn" data-section="analytics">
+            <i class="fas fa-chart-bar"></i>
+            Analytics
+        </button>
+        <button class="nav-btn" data-section="about">
+            <i class="fas fa-info-circle"></i>
+            About
+        </button>
+    </nav>
+
+    <!-- About Section -->
+    <div class="about-section" id="aboutSection" style="display: none;">
+        <div class="about-content">
+            <h2>About the Infinity Stones Search Engine</h2>
+            <p>This search engine is inspired by the Marvel Cinematic Universe's Infinity Stones, where each stone represents a different aspect of search functionality based on computer science principles.</p>
+            
+            <div class="stones-info">
+                <div class="stone-info">
+                    <div class="stone-icon">🔵</div>
+                    <h4>Space Stone</h4>
+                    <p>Exploratory Data Analysis - Explores the entire product database space</p>
+                </div>
+                <div class="stone-info">
+                    <div class="stone-icon">🟡</div>
+                    <h4>Mind Stone</h4>
+                    <p>Data Visualization - Presents search results in user-friendly formats</p>
+                </div>
+                <div class="stone-info">
+                    <div class="stone-icon">🔴</div>
+                    <h4>Reality Stone</h4>
+                    <p>Domain Knowledge - Understands e-commerce product categories</p>
+                </div>
+                <div class="stone-info">
+                    <div class="stone-icon">🟣</div>
+                    <h4>Power Stone</h4>
+                    <p>Compute Resources - Provides raw computational force for algorithms</p>
+                </div>
+                <div class="stone-info">
+                    <div class="stone-icon">🟢</div>
+                    <h4>Time Stone</h4>
+                    <p>Performance Optimization - Optimizes search performance and caching</p>
+                </div>
+                <div class="stone-info">
+                    <div class="stone-icon">🟠</div>
+                    <h4>Soul Stone</h4>
+                    <p>Business Intelligence - Provides insights and analytics</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='enhanced_script.js') }}"></script>
+</body>
+</html>
